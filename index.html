@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Budget Allocation AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div id="app" class="glass-container">
+        <!-- Page 1: User Details -->
+        <section id="page-1" class="page active">
+            <h1>Budget Planner Login</h1>
+            <div class="form-group">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" placeholder="Enter your name" autocomplete="off">
+                <small class="error-msg" id="name-error"></small>
+            </div>
+            
+            <div class="form-group dropdown-container">
+                <label for="city-search">City</label>
+                <input type="text" id="city-search" placeholder="Search for a city..." autocomplete="off">
+                <div id="city-results" class="dropdown-results"></div>
+                <small class="error-msg" id="city-error"></small>
+            </div>
+            
+            <div id="detection-info" class="detection-box hidden">
+                <p><strong>Country:</strong> <span id="detected-country">-</span></p>
+                <p><strong>Currency:</strong> <span id="detected-currency">-</span></p>
+            </div>
+            
+            <button id="btn-continue" class="primary-btn">Continue &rarr;</button>
+        </section>
+
+        <!-- Page 2: Financial Details -->
+        <section id="page-2" class="page">
+            <h2 id="welcome-msg">Hello User from City</h2>
+            <p class="currency-indicator">Currency: <span class="currency-label"></span></p>
+            
+            <div class="three-col">
+                <div class="form-group">
+                    <label for="monthly-salary">Monthly Salary</label>
+                    <div class="input-with-symbol">
+                        <span class="currency-symbol"></span>
+                        <input type="number" id="monthly-salary" min="0" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="family-size">Family Size</label>
+                    <input type="number" id="family-size" min="1" value="1">
+                </div>
+                <div class="form-group">
+                    <label for="savings-target">Savings Target (%)</label>
+                    <input type="number" id="savings-target" min="10" max="90" value="15">
+                </div>
+            </div>
+
+            <h3>Budget Priorities (1-10)</h3>
+            <div id="domain-priorities" class="priorities-vertical">
+                <!-- Domains will be injected here -->
+            </div>
+
+            <div class="btn-group">
+                <button id="btn-back-1" class="secondary-btn">&larr; Back</button>
+                <button id="btn-generate" class="primary-btn">Generate Budget Plan &rarr;</button>
+            </div>
+        </section>
+
+        <!-- Page 3: Allocation Result -->
+        <section id="page-3" class="page">
+            <h2>Budget Allocation Results</h2>
+            
+            <div class="results-grid">
+                <div class="card table-card">
+                    <h3>Allocation Table</h3>
+                    <div id="allocation-table-wrapper">
+                        <table id="allocation-table">
+                            <thead>
+                                <tr>
+                                    <th>Domain</th>
+                                    <th>Amount</th>
+                                    <th>Percentage</th>
+                                    <th>Progress</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="card chart-card">
+                    <h3>Distribution</h3>
+                    <canvas id="budgetChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card summary-card">
+                <h3>Summary</h3>
+                <p id="budget-summary"></p>
+                <div id="warnings-container"></div>
+            </div>
+
+            <div class="card suggestions-card">
+                <h3>Investment Suggestions</h3>
+                <ul id="investment-list"></ul>
+            </div>
+
+            <div class="bottom-btns">
+                <button id="btn-restart" class="action-btn">🔄 Start Over</button>
+                <button id="btn-print" class="action-btn">🖨 Print Report</button>
+                <button id="btn-back-2" class="action-btn">⬅ Previous Page</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="cities.js"></script>
+    <script src="logic.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
